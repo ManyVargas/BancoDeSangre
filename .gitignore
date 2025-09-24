@@ -1,0 +1,64 @@
+# ========================
+# Visual Studio / .NET
+# ========================
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+bin/
+obj/
+[Bb]uild/
+[Bb]uilds/
+[Bb]in/
+[Oo]bj/
+.vscode/
+.vs/
+
+# Configuración local de Rider/VS
+.idea/
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Paquetes NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Archivos de publicación
+publish/
+*.PublishSettings
+
+# Secretos locales (no subir appsettings.Development.json)
+appsettings.Development.json
+
+# ========================
+# Node / Frontend
+# ========================
+node_modules/
+dist/
+.cache/
+.npm/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build outputs
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+
+# ========================
+# Otros
+# ========================
+*.DS_Store
+Thumbs.db
