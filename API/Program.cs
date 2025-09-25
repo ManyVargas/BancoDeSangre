@@ -21,6 +21,7 @@ builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 builder.Services.AddScoped<IDonanteRepositorio, DonanteRepositorio > ();
 builder.Services.AddScoped<IPacienteRepositorio, PacienteRepositorio>();
 builder.Services.AddScoped<ITiposSangreRepositorio, TipoSangreRepositorio>();
+builder.Services.AddScoped<IHospitalRepositorio, HospitalRepositorio>();
 
 //builder.Services.AddSingleton<IJwtService, Jwt>();
 
