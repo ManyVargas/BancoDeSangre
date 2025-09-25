@@ -12,26 +12,40 @@ namespace Backend.DTOs
         public string Nombre { get; set; }
         public string CedulaID { get; set; }
         public DateTime FechaNacimiento { get; set; }
-        public string Telefono { get; set; }
+        public string? Telefono { get; set; }
         public string Email { get; set; }
         public int TipoSangreID { get; set; }
-        public DateTime UltimaDonacion { get; set; }
-        public decimal Latitud { get; set; }
-        public decimal Longitud { get; set; }
+        public DateTime? UltimaDonacion { get; set; }
+        public decimal? Latitud { get; set; }
+        public decimal? Longitud { get; set; }
         public bool Disponibilidad { get; set; }
     }
 
+    public class ListarDonantesDTO
+    {
+        public int DonanteID { get; set; }
+        public string Nombre { get; set; }
+        public string CedulaID { get; set; }
+        public DateTime FechaNacimiento { get; set; }
+        public string? Telefono { get; set; }
+        public string Email { get; set; }
+        public string TipoSangre { get; set; }
+        public DateTime? UltimaDonacion { get; set; }
+        public decimal? Latitud { get; set; }
+        public decimal? Longitud { get; set; }
+        public bool Disponibilidad { get; set; }
+    }
     public class RegistrarDonanteDTO 
     {
     public string Nombre { get; set; }
     public string CedulaID { get; set; }
 	public DateTime FechaNacimiento { get; set; }
-    public string Telefono { get; set; }
+    public string? Telefono { get; set; }
     public string Email { get; set; }
 	public int  TipoSangreID { get; set; }
-	public DateTime UltimaDonacion { get; set; }
-    public decimal Latitud { get; set; }
-	public decimal Longitud { get; set; }
+	public DateTime? UltimaDonacion { get; set; }
+    public decimal? Latitud { get; set; }
+	public decimal? Longitud { get; set; }
     public bool    Disponibilidad { get; set; }
 
     }

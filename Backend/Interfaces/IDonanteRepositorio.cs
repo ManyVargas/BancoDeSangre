@@ -9,11 +9,11 @@ namespace Backend.Interfaces
 {
     public interface IDonanteRepositorio
     {
-        Task<IEnumerable<DonantesDTO>> ListarAsync(CancellationToken ct);
-        Task<IEnumerable<DonantesDTO>> ListarPorTipoSangreAsync(string nombre, CancellationToken ct);
-        Task<DonantesDTO?> ObtenerPorIdAsync(int id, CancellationToken ct); 
+        Task<IEnumerable<ListarDonantesDTO>> ListarAsync(CancellationToken ct);
+        Task<IEnumerable<ListarDonantesDTO>> ListarPorTipoSangreAsync(string nombre, CancellationToken ct);
+        Task<ListarDonantesDTO?> ObtenerPorIdAsync(int id, CancellationToken ct); 
         Task<int> CrearAsync(RegistrarDonanteDTO dto, CancellationToken ct);
-        Task<DonantesDTO?> ActualizarAsync(int id, ActualizarDonanteDTO dto, CancellationToken ct);
+        Task<ListarDonantesDTO?> ActualizarAsync(int id, ActualizarDonanteDTO dto, CancellationToken ct);
         Task<bool> EliminarAsync(int id, CancellationToken ct);
     }
 }

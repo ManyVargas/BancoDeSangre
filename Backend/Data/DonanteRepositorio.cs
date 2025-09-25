@@ -46,10 +46,10 @@ namespace Backend.Data
             await rd.ReadAsync(ct);
             return rd.GetInt32(rd.GetOrdinal("DonanteID"));
         }
-        public async Task<DonantesDTO?> ActualizarAsync(int id, ActualizarDonanteDTO dto, CancellationToken ct)
+        public async Task<ListarDonantesDTO?> ActualizarAsync(int id, ActualizarDonanteDTO dto, CancellationToken ct)
         {
             using var con = _connectionFactory.Create();
-            using var cmd = new SqlCommand("dbo.sp_RegistrarDonante", con)
+            using var cmd = new SqlCommand("dbo.sp_ActualizarDonante", con)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -74,7 +74,7 @@ namespace Backend.Data
 
             await reader.ReadAsync(ct);
 
-            return new DonantesDTO
+            return new ListarDonantesDTO
             {
                 DonanteID = reader.GetInt32(reader.GetOrdinal("DonanteID")),
                 Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
@@ -82,10 +82,10 @@ namespace Backend.Data
                 FechaNacimiento = reader.GetDateTime(reader.GetOrdinal("FechaNacimiento")),
                 Telefono = reader.IsDBNull(reader.GetOrdinal("Telefono")) ? null : reader.GetString(reader.GetOrdinal("Telefono")),
                 Email = reader.GetString(reader.GetOrdinal("Email")),
-                TipoSangreID = reader.GetInt32(reader.GetOrdinal("TipoSangreID")),
-                UltimaDonacion = reader.GetDateTime(reader.GetOrdinal("UltimaDonacion")),
-                Latitud = reader.GetDecimal(reader.GetOrdinal("Latitud")),
-                Longitud = reader.GetDecimal(reader.GetOrdinal("Longitud")),
+                TipoSangre = reader.GetString(reader.GetOrdinal("TipoSangre")),
+                UltimaDonacion = reader.IsDBNull(reader.GetOrdinal("UltimaDonacion")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("UltimaDonacion")),
+                Latitud = reader.IsDBNull(reader.GetOrdinal("Latitud")) ? (decimal?)null : reader.GetDecimal(reader.GetOrdinal("Latitud")),
+                Longitud = reader.IsDBNull(reader.GetOrdinal("Longitud")) ? (decimal?)null : reader.GetDecimal(reader.GetOrdinal("Longitud")),
                 Disponibilidad = reader.GetBoolean(reader.GetOrdinal("Disponibilidad"))
             };
 
@@ -99,7 +99,7 @@ namespace Backend.Data
                 CommandType = CommandType.StoredProcedure
             };
 
-            cmd.Parameters.Add(new SqlParameter("@DonanteID", SqlDbType.Int) { Value = id });
+            cmd.Parameters.Add(new SqlParameter("@Original_DonanteID", SqlDbType.Int) { Value = id });
 
             await con.OpenAsync(ct);
 
@@ -108,7 +108,7 @@ namespace Backend.Data
             return filasAfectadas > 0;
         }
 
-        public async Task<IEnumerable<DonantesDTO>> ListarAsync(CancellationToken ct)
+        public async Task<IEnumerable<ListarDonantesDTO>> ListarAsync(CancellationToken ct)
         {
             using var con = _connectionFactory.Create();
             using var cmd = new SqlCommand("dbo.sp_ListarDonantes", con)
@@ -117,11 +117,11 @@ namespace Backend.Data
             };
             await con.OpenAsync(ct);
             using var reader = await cmd.ExecuteReaderAsync(ct);
-            
-            var list = new List<DonantesDTO>();
+
+            var list = new List<ListarDonantesDTO>();
             while (await reader.ReadAsync(ct))
             {
-                list.Add(new DonantesDTO
+                list.Add(new ListarDonantesDTO
                 {
                     DonanteID = reader.GetInt32(reader.GetOrdinal("DonanteID")),
                     Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
@@ -129,36 +129,69 @@ namespace Backend.Data
                     FechaNacimiento = reader.GetDateTime(reader.GetOrdinal("FechaNacimiento")),
                     Telefono = reader.IsDBNull(reader.GetOrdinal("Telefono")) ? null : reader.GetString(reader.GetOrdinal("Telefono")),
                     Email = reader.GetString(reader.GetOrdinal("Email")),
-                    TipoSangreID = reader.GetInt32(reader.GetOrdinal("TipoSangreID")),
-                    UltimaDonacion = reader.GetDateTime(reader.GetOrdinal("UltimaDonacion")),
-                    Latitud = reader.GetDecimal(reader.GetOrdinal("Latitud")),
-                    Longitud = reader.GetDecimal(reader.GetOrdinal("Longitud")),
+                    TipoSangre = reader.GetString(reader.GetOrdinal("TipoSangre")), // usar TipoSangre
+                    UltimaDonacion = reader.IsDBNull(reader.GetOrdinal("UltimaDonacion")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("UltimaDonacion")),
+                    Latitud = reader.IsDBNull(reader.GetOrdinal("Latitud")) ? (decimal?)null : reader.GetDecimal(reader.GetOrdinal("Latitud")),
+                    Longitud = reader.IsDBNull(reader.GetOrdinal("Longitud")) ? (decimal?)null : reader.GetDecimal(reader.GetOrdinal("Longitud")),
                     Disponibilidad = reader.GetBoolean(reader.GetOrdinal("Disponibilidad"))
                 });
             }
             return list;
-
         }
 
-       public async Task<IEnumerable<DonantesDTO>> ListarPorTipoSangreAsync(string tipoSangre, CancellationToken ct)
+
+        public async Task<IEnumerable<ListarDonantesDTO>> ListarPorTipoSangreAsync(string tipoSangre, CancellationToken ct)
+{
+        using var con = _connectionFactory.Create();
+        using var cmd = new SqlCommand("dbo.sp_ListarDonantesPorTipoSangre", con)
+        {
+            CommandType = CommandType.StoredProcedure
+        };
+
+        // Agregar parámetro para filtrar por tipo de sangre
+        cmd.Parameters.Add(new SqlParameter("@TipoSangre", SqlDbType.NVarChar, 10) { Value = tipoSangre });
+
+        await con.OpenAsync(ct);
+
+        using var reader = await cmd.ExecuteReaderAsync(ct);
+
+        var list = new List<ListarDonantesDTO>();
+        while (await reader.ReadAsync(ct))
+        {
+            list.Add(new ListarDonantesDTO
+            {
+                DonanteID = reader.GetInt32(reader.GetOrdinal("DonanteID")),
+                Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                CedulaID = reader.GetString(reader.GetOrdinal("CedulaID")),
+                FechaNacimiento = reader.GetDateTime(reader.GetOrdinal("FechaNacimiento")),
+                Telefono = reader.IsDBNull(reader.GetOrdinal("Telefono")) ? null : reader.GetString(reader.GetOrdinal("Telefono")),
+                Email = reader.GetString(reader.GetOrdinal("Email")),
+                TipoSangre = reader.GetString(reader.GetOrdinal("TipoSangre")),
+                UltimaDonacion = reader.IsDBNull(reader.GetOrdinal("UltimaDonacion")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("UltimaDonacion")),
+                Latitud = reader.IsDBNull(reader.GetOrdinal("Latitud")) ? (decimal?)null : reader.GetDecimal(reader.GetOrdinal("Latitud")),
+                Longitud = reader.IsDBNull(reader.GetOrdinal("Longitud")) ? (decimal?)null : reader.GetDecimal(reader.GetOrdinal("Longitud")),
+                Disponibilidad = reader.GetBoolean(reader.GetOrdinal("Disponibilidad"))
+            });
+        }
+
+        return list;
+}
+
+
+       public async Task<ListarDonantesDTO?> ObtenerPorIdAsync(int id, CancellationToken ct)
 {
     using var con = _connectionFactory.Create();
-    using var cmd = new SqlCommand("dbo.sp_ListarDonantesPorTipoSangre", con)
+    using var cmd = new SqlCommand("dbo.sp_ListarDonanteID", con)
     {
         CommandType = CommandType.StoredProcedure
     };
-
-    // Agregar parámetro para filtrar por tipo de sangre
-    cmd.Parameters.Add(new SqlParameter("@TipoSangre", SqlDbType.NVarChar, 10) { Value = tipoSangre });
-
+    cmd.Parameters.Add(new SqlParameter("@DonanteID", SqlDbType.Int) { Value = id });
     await con.OpenAsync(ct);
-
     using var reader = await cmd.ExecuteReaderAsync(ct);
 
-    var list = new List<DonantesDTO>();
-    while (await reader.ReadAsync(ct))
+    if (await reader.ReadAsync(ct))
     {
-        list.Add(new DonantesDTO
+        return new ListarDonantesDTO
         {
             DonanteID = reader.GetInt32(reader.GetOrdinal("DonanteID")),
             Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
@@ -166,54 +199,16 @@ namespace Backend.Data
             FechaNacimiento = reader.GetDateTime(reader.GetOrdinal("FechaNacimiento")),
             Telefono = reader.IsDBNull(reader.GetOrdinal("Telefono")) ? null : reader.GetString(reader.GetOrdinal("Telefono")),
             Email = reader.GetString(reader.GetOrdinal("Email")),
-            TipoSangreID = reader.GetInt32(reader.GetOrdinal("TipoSangreID")),
-            UltimaDonacion = reader.GetDateTime(reader.GetOrdinal("UltimaDonacion")),
-            Latitud = reader.GetDecimal(reader.GetOrdinal("Latitud")),
-            Longitud = reader.GetDecimal(reader.GetOrdinal("Longitud")),
+            TipoSangre = reader.GetString(reader.GetOrdinal("TipoSangre")),
+            UltimaDonacion = reader.IsDBNull(reader.GetOrdinal("UltimaDonacion")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("UltimaDonacion")),
+            Latitud = reader.IsDBNull(reader.GetOrdinal("Latitud")) ? (decimal?)null : reader.GetDecimal(reader.GetOrdinal("Latitud")),
+            Longitud = reader.IsDBNull(reader.GetOrdinal("Longitud")) ? (decimal?)null : reader.GetDecimal(reader.GetOrdinal("Longitud")),
             Disponibilidad = reader.GetBoolean(reader.GetOrdinal("Disponibilidad"))
-        });
+        };
     }
-
-    return list;
+    return null;
 }
 
-
-        public async Task<DonantesDTO?> ObtenerPorIdAsync(int id, CancellationToken ct)
-        {
-            using var con = _connectionFactory.Create();
-            using var cmd = new SqlCommand("dbo.sp_ObtenerDonantePorId", con)
-            {
-                CommandType = CommandType.StoredProcedure
-            };
-
-            // Agregar parámetro para el ID del donante
-            cmd.Parameters.Add(new SqlParameter("@DonanteID", SqlDbType.Int) { Value = id });
-
-            await con.OpenAsync(ct);
-
-            using var reader = await cmd.ExecuteReaderAsync(ct);
-
-            if (await reader.ReadAsync(ct))
-            {
-                return new DonantesDTO
-                {
-                    DonanteID = reader.GetInt32(reader.GetOrdinal("DonanteID")),
-                    Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
-                    CedulaID = reader.GetString(reader.GetOrdinal("CedulaID")),
-                    FechaNacimiento = reader.GetDateTime(reader.GetOrdinal("FechaNacimiento")),
-                    Telefono = reader.IsDBNull(reader.GetOrdinal("Telefono")) ? null : reader.GetString(reader.GetOrdinal("Telefono")),
-                    Email = reader.GetString(reader.GetOrdinal("Email")),
-                    TipoSangreID = reader.GetInt32(reader.GetOrdinal("TipoSangreID")),
-                    UltimaDonacion = reader.GetDateTime(reader.GetOrdinal("UltimaDonacion")),
-                    Latitud = reader.GetDecimal(reader.GetOrdinal("Latitud")),
-                    Longitud = reader.GetDecimal(reader.GetOrdinal("Longitud")),
-                    Disponibilidad = reader.GetBoolean(reader.GetOrdinal("Disponibilidad"))
-                };
-            }
-
-            // Si no se encontró ningún registro, devuelve null
-            return null;
-        }
 
     }
 }
