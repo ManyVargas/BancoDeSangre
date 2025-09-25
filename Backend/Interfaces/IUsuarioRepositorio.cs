@@ -9,11 +9,11 @@ namespace Backend.Interfaces
 {
     public interface IUsuarioRepositorio
     {
-        Task<IEnumerable<UsuarioDto>> ListarAsync(CancellationToken ct);
-        Task<UsuarioDto?> ObtenerPorIdAsync(int id, CancellationToken ct); // (ver nota más abajo)
-        Task<int> CrearAsync(UsuarioCrearDto dto, CancellationToken ct);
-        Task<UsuarioDto?> ActualizarAsync(int id, UsuarioActualizarDto dto, CancellationToken ct);
-        Task<bool> EliminarAsync(int id, CancellationToken ct); // ver nota de SP
-        Task<LoginResultDto?> AutenticarAsync(LoginDto dto, CancellationToken ct);
+        Task<IEnumerable<UsuarioDto>> ListarAsync();
+        Task<UsuarioDto?> ObtenerPorIdAsync(int id); // (ver nota más abajo)
+        Task<int> CrearAsync(UsuarioCrearDto dto);
+        Task<UsuarioDto?> ActualizarAsync(int id, UsuarioActualizarDto dto);
+        Task<bool> EliminarAsync(int id); // ver nota de SP
+        Task<LoginResultDto?> AutenticarAsync(LoginDto dto);
     }
 }

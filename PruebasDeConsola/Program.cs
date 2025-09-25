@@ -25,11 +25,11 @@ var nuevoUsuario = new UsuarioCrearDto
     RolID = 1 // debe existir un rol con ID=1
 };
 
-int id = await repo.CrearAsync(nuevoUsuario, CancellationToken.None);
+int id = await repo.CrearAsync(nuevoUsuario);
 Console.WriteLine($"Usuario insertado con ID: {id}");
 
 // 5. Listar todos los usuarios
-var usuarios = await repo.ListarAsync(CancellationToken.None);
+var usuarios = await repo.ListarAsync();
 foreach (var u in usuarios)
 {
     Console.WriteLine($"{u.UsuarioID} - {u.Email} - {u.NombreCompleto} - Estado: {u.Estado}");
