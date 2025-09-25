@@ -18,31 +18,28 @@ builder.Services.AddSwaggerGen();
 //Servicios del backend
 builder.Services.AddScoped<IConnectionFactory, SqlConnectionFactory>();
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+builder.Services.AddScoped<IDonanteRepositorio, DonanteRepositorio > ();
 
-builder.Services.AddSingleton<IJwtService, Jwt>();
+//builder.Services.AddSingleton<IJwtService, Jwt>();
 
-// (Recomendado) Validación JWT con clock skew = 0
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(o =>
-    {
-        o.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
-            ),
-            ClockSkew = TimeSpan.Zero
-        };
-    });
-
-
-
-
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+/* .AddJwtBearer(o =>
+  {
+      o.TokenValidationParameters = new TokenValidationParameters
+      {
+          ValidateIssuer = true,
+          ValidateAudience = true,
+          ValidateLifetime = true,
+          ValidateIssuerSigningKey = true,
+          ValidIssuer = builder.Configuration["Jwt:Issuer"],
+          ValidAudience = builder.Configuration["Jwt:Audience"],
+          IssuerSigningKey = new SymmetricSecurityKey(
+              Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
+          ),
+          ClockSkew = TimeSpan.Zero
+      };
+  });
+*/
 
 
 
@@ -56,6 +53,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
+app.UseRouting();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
