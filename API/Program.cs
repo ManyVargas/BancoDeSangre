@@ -19,6 +19,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IConnectionFactory, SqlConnectionFactory>();
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 builder.Services.AddScoped<IDonanteRepositorio, DonanteRepositorio > ();
+builder.Services.AddScoped<IPacienteRepositorio, PacienteRepositorio>();
+builder.Services.AddScoped<ITiposSangreRepositorio, TipoSangreRepositorio>();
 
 //builder.Services.AddSingleton<IJwtService, Jwt>();
 
