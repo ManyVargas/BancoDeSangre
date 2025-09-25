@@ -19,7 +19,7 @@ namespace Backend.Data
             _connectionFactory = connectionFactory;
         }
 
-        public async Task<UsuarioDto?> ActualizarAsync(int id, UsuarioActualizarDto dto, CancellationToken ct)
+        public async Task<UsuarioDto?> ActualizarAsync(int id, UsuarioActualizarDto dto)
         {
             using var con = _connectionFactory.Create();
             using var cmd = new SqlCommand("dbo.sp_ActualizarUsuario", con)
@@ -27,21 +27,22 @@ namespace Backend.Data
                 CommandType = CommandType.StoredProcedure
             };
 
+            var hash = PasswordHasher.Sha512Hex(dto.Contrasena);
             cmd.Parameters.Add(new SqlParameter("@UsuarioID", SqlDbType.Int) { Value = id });
             cmd.Parameters.Add(new SqlParameter("@Email", SqlDbType.NVarChar, 100) { Value = dto.Email });
-            cmd.Parameters.Add(new SqlParameter("@ContrasenaPlano", SqlDbType.NVarChar, 255) { Value = dto.Contrasena }); // SP hashea
+            cmd.Parameters.Add(new SqlParameter("@ContrasenaHash", SqlDbType.NVarChar, 255) { Value = hash }); // SP hashea
             cmd.Parameters.Add(new SqlParameter("@NombreCompleto", SqlDbType.NVarChar, 100) { Value = dto.NombreCompleto });
             cmd.Parameters.Add(new SqlParameter("@Telefono", SqlDbType.VarChar, 20) { Value = (object?)dto.Telefono ?? DBNull.Value });
             cmd.Parameters.Add(new SqlParameter("@RolID", SqlDbType.Int) { Value = dto.RolID });
             cmd.Parameters.Add(new SqlParameter("@Estado", SqlDbType.Bit) { Value = dto.Estado });
 
-            await con.OpenAsync(ct);
+            await con.OpenAsync();
 
-            using var reader = await cmd.ExecuteReaderAsync(ct);
+            using var reader = await cmd.ExecuteReaderAsync();
 
             if (!reader.HasRows) return null;
 
-            await reader.ReadAsync(ct);
+            await reader.ReadAsync();
 
             return new UsuarioDto
             {
@@ -56,7 +57,7 @@ namespace Backend.Data
             };
         }
 
-        public async Task<LoginResultDto?> AutenticarAsync(LoginDto dto, CancellationToken ct)
+        public async Task<LoginResultDto?> AutenticarAsync(LoginDto dto)
         {
             using var con = _connectionFactory.Create();
 
@@ -65,14 +66,15 @@ namespace Backend.Data
                 CommandType = CommandType.StoredProcedure 
             };
 
+            var hash = PasswordHasher.Sha512Hex(dto.Contrasena);
             cmd.Parameters.Add(new SqlParameter("@Email", SqlDbType.NVarChar, 100) { Value = dto.Email });
-            cmd.Parameters.Add(new SqlParameter("ContrasenaPlano", SqlDbType.NVarChar, 255) { Value = dto.Contrasena });
+            cmd.Parameters.Add(new SqlParameter("@ContrasenaHash", SqlDbType.NVarChar, 255) { Value = hash });
 
-            await con.OpenAsync(ct);
-            using var reader = await cmd.ExecuteReaderAsync(ct);
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
 
             if (!reader.HasRows) return null;
-            await reader.ReadAsync(ct);
+            await reader.ReadAsync();
 
             return new LoginResultDto
             {
@@ -85,7 +87,7 @@ namespace Backend.Data
             };
         }
 
-        public async Task<int> CrearAsync(UsuarioCrearDto dto, CancellationToken ct)
+        public async Task<int> CrearAsync(UsuarioCrearDto dto)
         {
             using var con = _connectionFactory.Create();
             using var cmd = new SqlCommand("dbo.sp_RegistrarUsuario", con)
@@ -105,21 +107,21 @@ namespace Backend.Data
             cmd.Parameters.Add(new SqlParameter("@UltimaActividad", SqlDbType.DateTime2) { Value = DBNull.Value });
             cmd.Parameters.Add(new SqlParameter("@Estado", SqlDbType.Bit) { Value = true });
 
-            await con.OpenAsync(ct);
-            using var rd = await cmd.ExecuteReaderAsync(ct);
+            await con.OpenAsync();
+            using var rd = await cmd.ExecuteReaderAsync();
             // el SP retorna la fila insertada; toma el ID
             if (!rd.HasRows) throw new Exception("No se pudo registrar el usuario.");
-            await rd.ReadAsync(ct);
+            await rd.ReadAsync();
             return rd.GetInt32(rd.GetOrdinal("UsuarioID"));
 
         }
 
-        public Task<bool> EliminarAsync(int id, CancellationToken ct)
+        public Task<bool> EliminarAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<UsuarioDto>> ListarAsync(CancellationToken ct)
+        public async Task<IEnumerable<UsuarioDto>> ListarAsync()
         {
             using var con = _connectionFactory.Create();
             using var cmd = new SqlCommand("dbo.sp_ListarUsuarios", con)
@@ -127,11 +129,11 @@ namespace Backend.Data
                 CommandType = CommandType.StoredProcedure
             };
 
-            await con.OpenAsync(ct);
-            using var reader = await cmd.ExecuteReaderAsync(ct);
+            await con.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
 
             var list = new List<UsuarioDto>();
-            while(await reader.ReadAsync(ct))
+            while(await reader.ReadAsync())
             {
                 list.Add(new UsuarioDto
                 {
@@ -149,7 +151,7 @@ namespace Backend.Data
             return list;
         }
 
-        public Task<UsuarioDto?> ObtenerPorIdAsync(int id, CancellationToken ct)
+        public Task<UsuarioDto?> ObtenerPorIdAsync(int id)
         {
             throw new NotImplementedException();
         }
