@@ -7,7 +7,7 @@ using Backend.DTOs;
 
 namespace Backend.Interfaces
 {
-    internal interface IPacienteRepositorio
+    public interface IPacienteRepositorio
     {
         Task<IEnumerable<ListarPacienteDTO>> ListarPacientePacientesAsync(CancellationToken ct);
         Task<IEnumerable<ListarPacienteDTO>> ListarPacientePacientesPorTipoDeSangreAsync(string TipoSangre, CancellationToken ct);
