@@ -243,7 +243,7 @@ namespace Backend.Data
                     CommandType = CommandType.StoredProcedure
                 };
 
-                cmd.Parameters.Add(new SqlParameter("@TipoSangre", SqlDbType.NVarChar, 50) { Value = tipoSangre }); // Cambié el nombre del parámetro
+                cmd.Parameters.Add(new SqlParameter("@TipoSangre", SqlDbType.NVarChar, 4) { Value = tipoSangre }); // Cambié el nombre del parámetro
 
                 await con.OpenAsync(ct);
 
