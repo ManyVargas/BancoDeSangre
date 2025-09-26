@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [BancoDeSangre]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Database [BancoDeSangre]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE DATABASE [BancoDeSangre]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -84,7 +84,7 @@ ALTER DATABASE [BancoDeSangre] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLE
 GO
 USE [BancoDeSangre]
 GO
-/****** Object:  Table [dbo].[BancosDeSangre]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[BancosDeSangre]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -105,7 +105,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CampanasDonacion]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[CampanasDonacion]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -124,7 +124,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CatalogoEnfermedades]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[CatalogoEnfermedades]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -143,7 +143,7 @@ UNIQUE NONCLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Donantes]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[Donantes]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -174,7 +174,7 @@ CREATE TABLE [dbo].[Donantes](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[EstatusInventario]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[EstatusInventario]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -193,7 +193,7 @@ UNIQUE NONCLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Historial_Enfermedades]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[Historial_Enfermedades]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -208,7 +208,7 @@ CREATE TABLE [dbo].[Historial_Enfermedades](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[HistorialMedico]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[HistorialMedico]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -226,7 +226,7 @@ CREATE TABLE [dbo].[HistorialMedico](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Hospitales]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[Hospitales]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -234,7 +234,7 @@ GO
 CREATE TABLE [dbo].[Hospitales](
 	[HospitalID] [int] IDENTITY(1,1) NOT NULL,
 	[Nombre] [nvarchar](100) NOT NULL,
-	[Direccion] [nvarchar](200) NULL,
+	[Direccion] [nvarchar](200) NOT NULL,
 	[Telefono] [varchar](20) NULL,
 	[Latitud] [decimal](9, 6) NULL,
 	[Longitud] [decimal](9, 6) NULL,
@@ -246,7 +246,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Inventario]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[Inventario]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -270,7 +270,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Notificaciones]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[Notificaciones]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -288,7 +288,7 @@ CREATE TABLE [dbo].[Notificaciones](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Pacientes]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[Pacientes]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -312,7 +312,7 @@ CREATE TABLE [dbo].[Pacientes](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ParticipacionCampana]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[ParticipacionCampana]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -335,7 +335,7 @@ CREATE TABLE [dbo].[ParticipacionCampana](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PruebasLaboratorio]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[PruebasLaboratorio]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -355,7 +355,7 @@ CREATE TABLE [dbo].[PruebasLaboratorio](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ResultadosPrueba]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[ResultadosPrueba]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -374,7 +374,7 @@ UNIQUE NONCLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Roles]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[Roles]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -394,7 +394,7 @@ UNIQUE NONCLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[SolicitudesDonacion]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[SolicitudesDonacion]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -417,7 +417,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TiposSangre]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[TiposSangre]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -435,7 +435,7 @@ UNIQUE NONCLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Usuarios]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Table [dbo].[Usuarios]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -461,79 +461,79 @@ UNIQUE NONCLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Campanas_Banco]    Script Date: 25/9/2025 12:17:05 p. m. ******/
+/****** Object:  Index [IX_Campanas_Banco]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Campanas_Banco] ON [dbo].[CampanasDonacion]
 (
 	[BancoID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Donantes_TipoSangre]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  Index [IX_Donantes_TipoSangre]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Donantes_TipoSangre] ON [dbo].[Donantes]
 (
 	[TipoSangreID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Inventario_Banco]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  Index [IX_Inventario_Banco]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Inventario_Banco] ON [dbo].[Inventario]
 (
 	[BancoID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Inventario_Tipo]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  Index [IX_Inventario_Tipo]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Inventario_Tipo] ON [dbo].[Inventario]
 (
 	[TipoSangreID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Notif_Donante]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  Index [IX_Notif_Donante]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Notif_Donante] ON [dbo].[Notificaciones]
 (
 	[DonanteID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Notif_Solicitud]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  Index [IX_Notif_Solicitud]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Notif_Solicitud] ON [dbo].[Notificaciones]
 (
 	[SolicitudID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Participacion_Campana]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  Index [IX_Participacion_Campana]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Participacion_Campana] ON [dbo].[ParticipacionCampana]
 (
 	[CampanaID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Participacion_Donante]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  Index [IX_Participacion_Donante]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Participacion_Donante] ON [dbo].[ParticipacionCampana]
 (
 	[DonanteID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Pruebas_Donante]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  Index [IX_Pruebas_Donante]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Pruebas_Donante] ON [dbo].[PruebasLaboratorio]
 (
 	[DonanteID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Solicitudes_BancoAsignado]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  Index [IX_Solicitudes_BancoAsignado]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Solicitudes_BancoAsignado] ON [dbo].[SolicitudesDonacion]
 (
 	[BancoID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Solicitudes_Hospital]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  Index [IX_Solicitudes_Hospital]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Solicitudes_Hospital] ON [dbo].[SolicitudesDonacion]
 (
 	[HospitalID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Solicitudes_Paciente]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  Index [IX_Solicitudes_Paciente]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Solicitudes_Paciente] ON [dbo].[SolicitudesDonacion]
 (
 	[PacienteID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Solicitudes_TipoSangre]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  Index [IX_Solicitudes_TipoSangre]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Solicitudes_TipoSangre] ON [dbo].[SolicitudesDonacion]
 (
 	[TipoSangreID] ASC
@@ -541,13 +541,13 @@ CREATE NONCLUSTERED INDEX [IX_Solicitudes_TipoSangre] ON [dbo].[SolicitudesDonac
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [IX_Usuarios_Email]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  Index [IX_Usuarios_Email]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Usuarios_Email] ON [dbo].[Usuarios]
 (
 	[Email] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Usuarios_RolID]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  Index [IX_Usuarios_RolID]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 CREATE NONCLUSTERED INDEX [IX_Usuarios_RolID] ON [dbo].[Usuarios]
 (
 	[RolID] ASC
@@ -710,7 +710,7 @@ ALTER TABLE [dbo].[SolicitudesDonacion]  WITH CHECK ADD  CONSTRAINT [CK_Solicitu
 GO
 ALTER TABLE [dbo].[SolicitudesDonacion] CHECK CONSTRAINT [CK_Solicitudes_Cantidad]
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ActualizarDonante]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ActualizarDonante]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -763,7 +763,7 @@ BEGIN
 		Where DonanteID = @DonanteID
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ActualizarEstadoSolicitud]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ActualizarEstadoSolicitud]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -785,7 +785,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ActualizarHistorialMedico]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ActualizarHistorialMedico]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -821,7 +821,57 @@ BEGIN
     WHERE HistorialID = @HistorialID;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ActualizarInventarioPorBanco]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ActualizarHospital]    Script Date: 25/9/2025 10:15:17 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Procedimiento para actualizar un hospital existente
+-- =============================================
+CREATE PROCEDURE [dbo].[sp_ActualizarHospital]
+(
+    @HospitalID INT,
+    @Nombre NVARCHAR(100),
+    @Direccion NVARCHAR(200) = NULL,
+    @Telefono VARCHAR(20) = NULL,
+    @Latitud DECIMAL(9, 6) = NULL,
+    @Longitud DECIMAL(9, 6) = NULL,
+    @ContactoPrincipal NVARCHAR(100) = NULL,
+    @EmailContacto NVARCHAR(100) = NULL
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE Hospitales
+    SET Nombre = @Nombre,
+        Direccion = @Direccion,
+        Telefono = @Telefono,
+        Latitud = @Latitud,
+        Longitud = @Longitud,
+        ContactoPrincipal = @ContactoPrincipal,
+        EmailContacto = @EmailContacto
+    WHERE HospitalID = @HospitalID
+
+    -- Retornar el hospital actualizado solo si se modificó
+    IF @@ROWCOUNT > 0
+    BEGIN
+        SELECT 
+            h.HospitalID,
+            h.Nombre,
+            h.Direccion,
+            h.Telefono,
+            h.Latitud,
+            h.Longitud,
+            h.ContactoPrincipal,
+            h.EmailContacto
+        FROM Hospitales h
+        WHERE h.HospitalID = @HospitalID;
+    END
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ActualizarInventarioPorBanco]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -856,7 +906,7 @@ BEGIN
       AND i.TipoSangreID = @TipoSangreID;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ActualizarPaciente]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ActualizarPaciente]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -914,7 +964,51 @@ BEGIN
     END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ActualizarUsuario]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ActualizarPruebaLaboratorio]    Script Date: 25/9/2025 10:15:17 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Procedimiento para actualizar el resultado de una prueba (lo más lógico)
+-- =============================================
+CREATE PROCEDURE [dbo].[sp_ActualizarPruebaLaboratorio]
+(
+    @PruebaID INT,
+    @ResultadoID INT,
+    @Observaciones NVARCHAR(500) = NULL
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE PruebasLaboratorio
+    SET ResultadoID = @ResultadoID,
+        Observaciones = ISNULL(@Observaciones, Observaciones)  -- Mantener observaciones actuales si no se proporcionan nuevas
+    WHERE PruebaID = @PruebaID;
+
+    -- Retornar la prueba actualizada si se modificó algo
+    IF @@ROWCOUNT > 0
+    BEGIN
+        SELECT 
+            pl.PruebaID,
+            pl.DonanteID,
+            d.Nombre AS NombreDonante,
+            pl.TipoPrueba,
+            pl.FechaPrueba,
+            pl.Laboratorio,
+            pl.ValidezHasta,
+            pl.Observaciones,
+            pl.ResultadoID,
+            rp.Nombre AS ResultadoPrueba  -- Asumiendo que el campo en ResultadosPrueba se llama Resultado
+        FROM PruebasLaboratorio pl
+        INNER JOIN Donantes d ON pl.DonanteID = d.DonanteID
+        INNER JOIN ResultadosPrueba rp ON pl.ResultadoID = rp.ResultadoID
+        WHERE pl.PruebaID = @PruebaID;
+    END
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ActualizarUsuario]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -951,7 +1045,7 @@ BEGIN
     WHERE UsuarioID = @UsuarioID;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ActualzarRol]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ActualzarRol]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -976,7 +1070,7 @@ FROM Roles
 WHERE RolID = @RolID;
 	
 GO
-/****** Object:  StoredProcedure [dbo].[sp_AutenticarUsuario]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_AutenticarUsuario]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1013,7 +1107,7 @@ BEGIN
     END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_CrearHistorialMedico]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_CrearHistorialMedico]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1070,7 +1164,7 @@ BEGIN
     WHERE HistorialID = SCOPE_IDENTITY();
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_CrearSolicitudDonacion]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_CrearSolicitudDonacion]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1094,7 +1188,7 @@ INSERT INTO [dbo].[SolicitudesDonacion] ([PacienteID], [TipoSangreID], [Cantidad
 	
 SELECT SolicitudID, PacienteID, TipoSangreID, CantidadRequerida, FechaLimite, HospitalID, Estado, DireccionPaciente, Anonimo, FechaInicio, BancoID FROM SolicitudesDonacion WHERE (SolicitudID = SCOPE_IDENTITY())
 GO
-/****** Object:  StoredProcedure [dbo].[sp_EliminarDonante]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_EliminarDonante]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1113,7 +1207,39 @@ BEGIN
     SELECT @@ROWCOUNT AS FilasAfectadas;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_EliminarPaciente]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_EliminarHospital]    Script Date: 25/9/2025 10:15:17 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Procedimiento para eliminar un hospital
+-- =============================================
+CREATE PROCEDURE [dbo].[sp_EliminarHospital]
+(
+    @HospitalID INT
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Verificar si el hospital existe antes de intentar eliminarlo
+    IF NOT EXISTS (SELECT 1 FROM Hospitales WHERE HospitalID = @HospitalID)
+    BEGIN
+        -- Si no existe, retornar 0 para indicar que no se eliminó nada
+        SELECT 0 AS FilasAfectadas;
+        RETURN;
+    END
+
+    -- Eliminar el hospital
+    DELETE FROM Hospitales
+    WHERE HospitalID = @HospitalID;
+
+    -- Retornar el número de filas afectadas
+    SELECT @@ROWCOUNT AS FilasAfectadas;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_EliminarPaciente]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1136,7 +1262,30 @@ BEGIN
     SELECT @@ROWCOUNT AS FilasAfectadas;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_EliminarRol]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_EliminarPruebaLaboratorio]    Script Date: 25/9/2025 10:15:17 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Procedimiento para eliminar una prueba
+-- =============================================
+CREATE PROCEDURE [dbo].[sp_EliminarPruebaLaboratorio]
+(
+    @PruebaID INT
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM PruebasLaboratorio
+    WHERE PruebaID = @PruebaID;
+
+    SELECT @@ROWCOUNT AS FilasAfectadas;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_EliminarRol]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1149,7 +1298,7 @@ AS
 	SET NOCOUNT OFF;
 DELETE FROM [dbo].[Roles] WHERE [RolID] = @RolID
 GO
-/****** Object:  StoredProcedure [dbo].[sp_EliminarUsuario]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_EliminarUsuario]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1163,7 +1312,7 @@ AS
 	SET NOCOUNT OFF;
 DELETE FROM [dbo].[Usuarios] WHERE (([UsuarioID] = @UsuarioID) AND ([ContrasenaHash] = @ContrasenaHash))
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarBancos]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarBancos]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1186,7 +1335,7 @@ FROM Bancos
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarDonanteID]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarDonanteID]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1211,7 +1360,7 @@ FROM            Donantes d
 INNER JOIN dbo.TiposSangre ts ON d.TipoSangreID = ts.TipoSangreID
 WHERE        (d.DonanteID = @DonanteID)
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarDonantes]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarDonantes]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1234,7 +1383,7 @@ d.Disponibilidad
 FROM  Donantes d
 INNER JOIN dbo.TiposSangre ts ON d.TipoSangreID = ts.TipoSangreID
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarDonantesPorTipoSangre]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarDonantesPorTipoSangre]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1262,7 +1411,7 @@ BEGIN
       AND d.Disponibilidad = 1;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarHistorialMedico]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarHistorialMedico]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1306,7 +1455,53 @@ BEGIN
        OR (@PacienteID IS NOT NULL AND h.PacienteID = @PacienteID);
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarInventarioPorBanco]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarHospitales]    Script Date: 25/9/2025 10:15:17 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_ListarHospitales]
+
+AS
+	SET NOCOUNT ON;
+SELECT   
+HospitalID,
+Nombre,
+Direccion,
+Telefono,
+Longitud,
+Latitud,
+ContactoPrincipal,
+EmailContacto
+
+FROM Hospitales
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ListarHospitalesPorNombre]    Script Date: 25/9/2025 10:15:17 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_ListarHospitalesPorNombre]
+
+@Nombre varchar(50)
+
+AS
+	SET NOCOUNT ON;
+SELECT 
+
+HospitalID,
+Nombre,
+Direccion,
+Telefono,
+Longitud,
+Latitud,
+ContactoPrincipal,
+EmailContacto
+
+FROM Hospitales
+WHERE Nombre = @Nombre
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ListarInventarioPorBanco]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1328,7 +1523,7 @@ INNER JOIN dbo.BancosDeSangre b ON i.BancoID = b.BancoID
 INNER JOIN TiposSangre ts ON i.TipoSangreID = ts.TipoSangreID
 WHERE i.BancoID = @BancoID
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarPacientePorId]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarPacientePorId]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1359,7 +1554,7 @@ BEGIN
     WHERE p.PacienteID = @PacienteID;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarPacientes]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarPacientes]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1386,7 +1581,7 @@ BEGIN
     ORDER BY p.Nombre;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarPacientesPorTipoSangre]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarPacientesPorTipoSangre]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1418,7 +1613,7 @@ BEGIN
     ORDER BY p.Nombre;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarParticipantesCampaña]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarParticipantesCampaña]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1440,13 +1635,46 @@ inner join dbo.Donantes d on d.DonanteID = p.DonanteID
 inner join dbo.CampanasDonacion c on c.CampanaID = p.CampanaID
 where c.CampanaID = @CapañaID
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarPruebasLaboratorio]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarPruebaPorId]    Script Date: 25/9/2025 10:15:17 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Procedimiento para obtener una prueba por ID
+-- =============================================
+CREATE PROCEDURE [dbo].[sp_ListarPruebaPorId]
+(
+    @PruebaID INT
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        pl.PruebaID,
+        pl.DonanteID,
+        d.Nombre AS NombreDonante,
+        pl.TipoPrueba,
+        pl.FechaPrueba,
+        pl.Laboratorio,
+        pl.ValidezHasta,
+        pl.Observaciones,
+        rp.Nombre AS ResultadoPrueba
+    FROM PruebasLaboratorio pl
+    INNER JOIN Donantes d ON pl.DonanteID = d.DonanteID
+    INNER JOIN ResultadosPrueba rp ON pl.ResultadoID = rp.ResultadoID
+    WHERE pl.PruebaID = @PruebaID;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ListarPruebasLaboratorio]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROCEDURE [dbo].[sp_ListarPruebasLaboratorio]
-@donanteID INT
+
 AS
 	SET NOCOUNT ON;
 SELECT 
@@ -1454,15 +1682,134 @@ PruebaID,
 d.Nombre AS Nombre, 
 p.TipoPrueba, 
 p.FechaPrueba, 
-p.Resultado, 
 p.Laboratorio, 
 p.ValidezHasta, 
-p.Observaciones 
+p.Observaciones,
+r.Nombre AS Resultado
 FROM dbo.PruebasLaboratorio p
 inner join dbo.Donantes d on P.DonanteID = d.DonanteID
-Where p.DonanteID = @donanteID
+inner join dbo.ResultadosPrueba r on p.ResultadoID = r.ResultadoID
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarRoles]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarPruebasPorDonante]    Script Date: 25/9/2025 10:15:17 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Procedimiento para listar pruebas por donante
+-- =============================================
+CREATE PROCEDURE [dbo].[sp_ListarPruebasPorDonante]
+(
+    @DonanteID INT
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        pl.PruebaID,
+        d.Nombre AS NombreDonante,
+        pl.TipoPrueba,
+        pl.FechaPrueba,
+        pl.Laboratorio,
+        pl.ValidezHasta,
+        pl.Observaciones,
+        rp.Nombre AS ResultadoPrueba
+    FROM PruebasLaboratorio pl
+    INNER JOIN Donantes d ON pl.DonanteID = d.DonanteID
+    INNER JOIN ResultadosPrueba rp ON pl.ResultadoID = rp.ResultadoID
+    WHERE pl.DonanteID = @DonanteID
+    ORDER BY pl.FechaPrueba DESC;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ListarPruebasPorRangoFechas]    Script Date: 25/9/2025 10:15:17 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Procedimiento para listar pruebas por rango de fechas
+-- =============================================
+CREATE PROCEDURE [dbo].[sp_ListarPruebasPorRangoFechas]
+(
+    @FechaInicio DATE,
+    @FechaFin DATE
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        pl.PruebaID,
+        pl.DonanteID,
+        d.Nombre AS NombreDonante,
+        pl.TipoPrueba,
+        pl.FechaPrueba,
+        pl.Laboratorio,
+        pl.ValidezHasta,
+        pl.Observaciones,
+        rp.Nombre AS ResultadoPrueba
+    FROM PruebasLaboratorio pl
+    INNER JOIN Donantes d ON pl.DonanteID = d.DonanteID
+    INNER JOIN ResultadosPrueba rp ON pl.ResultadoID = rp.ResultadoID
+    WHERE pl.FechaPrueba BETWEEN @FechaInicio AND @FechaFin
+    ORDER BY pl.FechaPrueba DESC;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ListarPruebasPorTipo]    Script Date: 25/9/2025 10:15:17 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Procedimiento para listar pruebas por tipo de prueba
+-- =============================================
+CREATE PROCEDURE [dbo].[sp_ListarPruebasPorTipo]
+(
+    @TipoPrueba NVARCHAR(100)
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        pl.PruebaID,
+        pl.DonanteID,
+        d.Nombre AS NombreDonante,
+        pl.TipoPrueba,
+        pl.FechaPrueba,
+        pl.Laboratorio,
+        pl.ValidezHasta,
+        pl.Observaciones,
+        pl.ResultadoID,
+        rp.Nombre AS ResultadoPrueba
+    FROM PruebasLaboratorio pl
+    INNER JOIN Donantes d ON pl.DonanteID = d.DonanteID
+    INNER JOIN ResultadosPrueba rp ON pl.ResultadoID = rp.ResultadoID
+    WHERE pl.TipoPrueba = @TipoPrueba
+    ORDER BY pl.FechaPrueba DESC;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ListarResultadosPrueba]    Script Date: 25/9/2025 10:15:17 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_ListarResultadosPrueba]
+
+AS
+SET NOCOUNT ON;
+
+	SELECT
+	ResultadoID,
+	Nombre,
+	Descripcion
+	FROM ResultadosPrueba
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ListarRoles]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1472,7 +1819,7 @@ AS
 	SET NOCOUNT ON;
 SELECT RolID, NombreRol, Descripcion, Activo FROM dbo.Roles
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarSolicitudes]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarSolicitudes]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1499,7 +1846,7 @@ INNER JOIN dbo.TiposSangre ts ON s.TipoSangreID = ts.TipoSangreID
 INNER JOIN dbo.BancosDeSangre b ON s.BancoID = b.BancoID
 INNER JOIN dbo.Hospitales h ON s.HospitalID = h.HospitalID
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarSolicitudesEstado]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarSolicitudesEstado]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1528,7 +1875,7 @@ INNER JOIN dbo.BancosDeSangre b ON s.BancoID = b.BancoID
 INNER JOIN dbo.Hospitales h ON s.HospitalID = h.HospitalID
 WHERE Estado = @EstadoSolicitud
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarTiposDeSangre]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarTiposDeSangre]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1538,7 +1885,7 @@ AS
 	SET NOCOUNT ON;
 SELECT TipoSangreID, Tipo FROM dbo.TiposSangre
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarUsuarios]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarUsuarios]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1548,7 +1895,7 @@ AS
 	SET NOCOUNT ON;
 SELECT UsuarioID, ContrasenaHash, Email, NombreCompleto, Telefono, RolID, FechaRegistro, UltimoAcceso, UltimaActividad, Estado FROM dbo.Usuarios
 GO
-/****** Object:  StoredProcedure [dbo].[sp_RegistrarBancoSangre]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarBancoSangre]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1570,7 +1917,7 @@ INSERT INTO [dbo].[BancosDeSangre] ([Nombre], [Direccion], [Telefono], [Latitud]
 	
 SELECT BancoID, Nombre, Direccion, Telefono, Latitud, Longitud, SitioWeb, CorreoElectronico, RNC FROM BancosDeSangre WHERE (BancoID = SCOPE_IDENTITY())
 GO
-/****** Object:  StoredProcedure [dbo].[sp_RegistrarCampaña]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarCampaña]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1590,7 +1937,7 @@ INSERT INTO [dbo].[CampanasDonacion] ([Nombre], [Descripcion], [FechaInicio], [F
 	
 SELECT CampanaID, Nombre, Descripcion, FechaInicio, FechaFin, Ubicacion, BancoID FROM CampanasDonacion WHERE (CampanaID = SCOPE_IDENTITY())
 GO
-/****** Object:  StoredProcedure [dbo].[sp_RegistrarDonante]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarDonante]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1614,7 +1961,7 @@ INSERT INTO [dbo].[Donantes] ([Nombre], [CedulaID], [FechaNacimiento], [Telefono
 	
 SELECT DonanteID, Nombre, CedulaID, FechaNacimiento, Telefono, Email, TipoSangreID, UltimaDonacion, Latitud, Longitud, Disponibilidad FROM Donantes WHERE (DonanteID = SCOPE_IDENTITY())
 GO
-/****** Object:  StoredProcedure [dbo].[sp_RegistrarEnfermedades]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarEnfermedades]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1630,7 +1977,7 @@ INSERT INTO [dbo].[CatalogoEnfermedades] ([NombreEnfermedad], [Descripcion]) VAL
 	
 SELECT EnfermedadID, NombreEnfermedad, Descripcion FROM CatalogoEnfermedades WHERE (EnfermedadID = SCOPE_IDENTITY())
 GO
-/****** Object:  StoredProcedure [dbo].[sp_RegistrarHistorialEnfermedad]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarHistorialEnfermedad]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1646,7 +1993,7 @@ INSERT INTO [dbo].[Historial_Enfermedades] ([HistorialID], [EnfermedadID]) VALUE
 	
 SELECT HistorialID, EnfermedadID FROM Historial_Enfermedades WHERE (EnfermedadID = @EnfermedadID) AND (HistorialID = @HistorialID)
 GO
-/****** Object:  StoredProcedure [dbo].[sp_RegistrarHospital]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarHospital]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1667,7 +2014,7 @@ INSERT INTO [dbo].[Hospitales] ([Nombre], [Direccion], [Telefono], [Latitud], [L
 	
 SELECT HospitalID, Nombre, Direccion, Telefono, Latitud, Longitud, ContactoPrincipal, EmailContacto FROM Hospitales WHERE (HospitalID = SCOPE_IDENTITY())
 GO
-/****** Object:  StoredProcedure [dbo].[sp_RegistrarPaciente]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarPaciente]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1696,7 +2043,7 @@ BEGIN
     SELECT SCOPE_IDENTITY() AS NuevoPacienteID;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_RegistrarParticipacionCampaña]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarParticipacionCampaña]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1714,7 +2061,36 @@ INSERT INTO [dbo].[ParticipacionCampana] ([CampanaID], [DonanteID], [FechaDonaci
 	
 SELECT ParticipacionID, CampanaID, DonanteID, FechaDonacion, CantidadUnidades FROM ParticipacionCampana WHERE (ParticipacionID = SCOPE_IDENTITY())
 GO
-/****** Object:  StoredProcedure [dbo].[sp_RegistrarRol]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarPruebaLaboratorio]    Script Date: 25/9/2025 10:15:17 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Procedimiento para crear una nueva prueba de laboratorio
+-- =============================================
+CREATE PROCEDURE [dbo].[sp_RegistrarPruebaLaboratorio]
+(
+    @DonanteID INT,
+    @TipoPrueba NVARCHAR(100),
+    @FechaPrueba DATE,
+    @Laboratorio NVARCHAR(100) = NULL,
+    @ValidezHasta DATE = NULL,
+    @Observaciones NVARCHAR(500) = NULL,
+    @ResultadoID INT
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO PruebasLaboratorio (DonanteID, TipoPrueba, FechaPrueba, Laboratorio, ValidezHasta, Observaciones, ResultadoID)
+    VALUES (@DonanteID, @TipoPrueba, @FechaPrueba, @Laboratorio, @ValidezHasta, @Observaciones, @ResultadoID);
+
+ SELECT CAST(SCOPE_IDENTITY() AS INT) AS NuevaPruebaID;
+ END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarRol]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1731,7 +2107,7 @@ INSERT INTO [dbo].[Roles] ([NombreRol], [Descripcion], [Activo]) VALUES (@Nombre
 	
 SELECT RolID, NombreRol, Descripcion, Activo FROM Roles WHERE (RolID = SCOPE_IDENTITY())
 GO
-/****** Object:  StoredProcedure [dbo].[sp_RegistrarUsuario]    Script Date: 25/9/2025 12:17:06 p. m. ******/
+/****** Object:  StoredProcedure [dbo].[sp_RegistrarUsuario]    Script Date: 25/9/2025 10:15:17 p. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
