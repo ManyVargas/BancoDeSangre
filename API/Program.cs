@@ -23,6 +23,7 @@ builder.Services.AddScoped<IPacienteRepositorio, PacienteRepositorio>();
 builder.Services.AddScoped<ITiposSangreRepositorio, TipoSangreRepositorio>();
 builder.Services.AddScoped<IHospitalRepositorio, HospitalRepositorio>();
 builder.Services.AddScoped<IResultadosPrueba, ResultadosPruebaRepositorio>();
+builder.Services.AddScoped<IPruebasLaboratorio, PruebasLaboratorioRepositorio>();
 
 //builder.Services.AddSingleton<IJwtService, Jwt>();
 
