@@ -10,5 +10,6 @@ namespace Backend.Interfaces
     public interface IBancoDeSangreRepositorio
     {
         Task<int> RegistrarBancoDeSangre(RegistrarBancoDeSangreDto dto);
+        Task<IEnumerable<BancoDeSangreDto>> ListarBancosDeSangre();
     }
 }
