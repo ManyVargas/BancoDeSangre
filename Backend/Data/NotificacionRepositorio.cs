@@ -8,155 +8,267 @@ namespace Backend.Data
     public class NotificacionRepositorio : INotificacionRepositorio
     {
         private readonly IConnectionFactory _cf;
-        public NotificacionRepositorio(IConnectionFactory cf) => _cf = cf;
 
-        public async Task<IEnumerable<NotificacionDTO>> ListarAsync(CancellationToken ct)
+        public NotificacionRepositorio(IConnectionFactory cf) => _cf = cf ?? throw new ArgumentNullException(nameof(cf));
+
+        public async Task<IEnumerable<ListarNotificacionDTO>> ListarPorDonanteAsync(int donanteId, CancellationToken ct)
         {
-            using var con = _cf.Create();
-            using var cmd = new SqlCommand(@"
-                SELECT NotificacionID, UsuarioID, Mensaje, FechaCreacion, Leido
-                FROM dbo.Notificaciones
-                ORDER BY FechaCreacion DESC;", con);
+            if (donanteId <= 0)
+                throw new ArgumentException("El ID del donante debe ser mayor a 0.", nameof(donanteId));
 
-            await con.OpenAsync(ct);
-            using var rd = await cmd.ExecuteReaderAsync(ct);
-
-            var list = new List<NotificacionDTO>();
-            while (await rd.ReadAsync(ct))
+            try
             {
-                list.Add(new NotificacionDTO
+                using var con = _cf.Create();
+                using var cmd = new SqlCommand("sp_ListarNotificacionesPorDonante", con)
                 {
-                    NotificacionID = rd.GetInt32(rd.GetOrdinal("NotificacionID")),
-                    UsuarioID = rd.GetInt32(rd.GetOrdinal("UsuarioID")),
-                    Mensaje = rd.GetString(rd.GetOrdinal("Mensaje")),
-                    FechaCreacion = rd.GetDateTime(rd.GetOrdinal("FechaCreacion")),
-                    Leido = rd.GetBoolean(rd.GetOrdinal("Leido"))
-                });
+                    CommandType = CommandType.StoredProcedure
+                };
+                cmd.Parameters.Add(new SqlParameter("@DonanteID", SqlDbType.Int) { Value = donanteId });
+
+                await con.OpenAsync(ct);
+                using var rd = await cmd.ExecuteReaderAsync(ct);
+
+                var list = new List<ListarNotificacionDTO>();
+                while (await rd.ReadAsync(ct))
+                {
+                    list.Add(new ListarNotificacionDTO
+                    {
+                        NotificacionID = rd.GetInt32("NotificacionID"),
+                        NombreDonante = rd.GetString("NombreDonante"),
+                        Mensaje = rd.GetString("Mensaje"),
+                        FechaEnvio = rd.GetDateTime("FechaEnvio"),
+                        Leida = rd.GetBoolean("Leido")
+                    });
+                }
+                return list;
             }
-            return list;
+            catch (SqlException sqlEx)
+            {
+                throw new InvalidOperationException("Error al obtener las notificaciones del donante desde la base de datos.", sqlEx);
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Ocurrió un error inesperado al listar notificaciones para el donante con ID {donanteId}.", ex);
+            }
         }
 
-        public async Task<IEnumerable<NotificacionDTO>> ListarPorUsuarioAsync(int usuarioId, CancellationToken ct)
+        public async Task<ListarNotificacionDTO?> ListarPorIdAsync(int id, CancellationToken ct)
         {
-            using var con = _cf.Create();
-            using var cmd = new SqlCommand(@"
-                SELECT NotificacionID, UsuarioID, Mensaje, FechaCreacion, Leido
-                FROM dbo.Notificaciones
-                WHERE UsuarioID = @u
-                ORDER BY FechaCreacion DESC;", con);
-            cmd.Parameters.Add(new SqlParameter("@u", SqlDbType.Int) { Value = usuarioId });
+            if (id <= 0)
+                return null;
 
-            await con.OpenAsync(ct);
-            using var rd = await cmd.ExecuteReaderAsync(ct);
-
-            var list = new List<NotificacionDTO>();
-            while (await rd.ReadAsync(ct))
+            try
             {
-                list.Add(new NotificacionDTO
+                using var con = _cf.Create();
+                using var cmd = new SqlCommand("dbo.sp_ListarNotificacionPorID", con)
                 {
-                    NotificacionID = rd.GetInt32(rd.GetOrdinal("NotificacionID")),
-                    UsuarioID = rd.GetInt32(rd.GetOrdinal("UsuarioID")),
-                    Mensaje = rd.GetString(rd.GetOrdinal("Mensaje")),
-                    FechaCreacion = rd.GetDateTime(rd.GetOrdinal("FechaCreacion")),
-                    Leido = rd.GetBoolean(rd.GetOrdinal("Leido"))
-                });
+                    CommandType = CommandType.StoredProcedure
+                };
+                cmd.Parameters.Add(new SqlParameter("@NotificacionID", SqlDbType.Int) { Value = id });
+
+                await con.OpenAsync(ct);
+                using var rd = await cmd.ExecuteReaderAsync(ct);
+                if (!await rd.ReadAsync(ct)) return null;
+
+                return new ListarNotificacionDTO
+                {
+                    NotificacionID = rd.GetInt32("NotificacionID"),
+                    NombreDonante = rd.GetString("NombreDonante"),
+                    Mensaje = rd.GetString("Mensaje"),
+                    FechaEnvio = rd.GetDateTime("FechaEnvio"),
+                    Leida = rd.GetBoolean("Leido")
+                };
             }
-            return list;
-        }
-
-        public async Task<NotificacionDTO?> ObtenerPorIdAsync(int id, CancellationToken ct)
-        {
-            using var con = _cf.Create();
-            using var cmd = new SqlCommand(@"
-                SELECT NotificacionID, UsuarioID, Mensaje, FechaCreacion, Leido
-                FROM dbo.Notificaciones
-                WHERE NotificacionID = @id;", con);
-            cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int) { Value = id });
-
-            await con.OpenAsync(ct);
-            using var rd = await cmd.ExecuteReaderAsync(ct);
-            if (!await rd.ReadAsync(ct)) return null;
-
-            return new NotificacionDTO
+            catch (SqlException sqlEx)
             {
-                NotificacionID = rd.GetInt32(rd.GetOrdinal("NotificacionID")),
-                UsuarioID = rd.GetInt32(rd.GetOrdinal("UsuarioID")),
-                Mensaje = rd.GetString(rd.GetOrdinal("Mensaje")),
-                FechaCreacion = rd.GetDateTime(rd.GetOrdinal("FechaCreacion")),
-                Leido = rd.GetBoolean(rd.GetOrdinal("Leido"))
-            };
+                throw new InvalidOperationException($"Error al obtener la notificación con ID {id} desde la base de datos.", sqlEx);
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Ocurrió un error inesperado al obtener la notificación con ID {id}.", ex);
+            }
         }
 
         public async Task<int> CrearAsync(CrearNotificacionDTO dto, CancellationToken ct)
         {
-            using var con = _cf.Create();
-            using var cmd = new SqlCommand(@"
-                INSERT INTO dbo.Notificaciones (UsuarioID, Mensaje)
-                OUTPUT INSERTED.NotificacionID
-                VALUES (@u, @m);", con);
+            if (dto == null)
+                throw new ArgumentNullException(nameof(dto));
 
-            cmd.Parameters.Add(new SqlParameter("@u", SqlDbType.Int) { Value = dto.UsuarioID });
-            cmd.Parameters.Add(new SqlParameter("@m", SqlDbType.NVarChar, -1) { Value = dto.Mensaje });
+            if (dto.DonanteID <= 0)
+                throw new ArgumentException("El ID del donante es inválido.", nameof(dto.DonanteID));
 
-            await con.OpenAsync(ct);
-            var id = (int)await cmd.ExecuteScalarAsync(ct);
-            return id;
+            if (dto.solicitudID<= 0)
+                throw new ArgumentException("El ID de la solicitud es inválido.", nameof(dto.solicitudID));
+
+            if (string.IsNullOrWhiteSpace(dto.Mensaje))
+                throw new ArgumentException("El mensaje no puede estar vacío.", nameof(dto.Mensaje));
+
+            try
+            {
+                using var con = _cf.Create();
+                using var cmd = new SqlCommand("dbo.sp_CrearNotificacion", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                cmd.Parameters.Add(new SqlParameter("@DonanteID", SqlDbType.Int) { Value = dto.DonanteID });
+                cmd.Parameters.Add(new SqlParameter("@SolicitudID", SqlDbType.Int) { Value = dto.solicitudID });
+                cmd.Parameters.Add(new SqlParameter("@Mensaje", SqlDbType.NVarChar, -1) { Value = dto.Mensaje.Trim() });
+
+                await con.OpenAsync(ct);
+                var result = await cmd.ExecuteScalarAsync(ct);
+
+                if (result == null || result == DBNull.Value)
+                    throw new InvalidOperationException("El procedimiento almacenado no devolvió un ID de notificación.");
+
+                return Convert.ToInt32(result);
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new InvalidOperationException("Error al crear la notificación en la base de datos.", sqlEx);
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Ocurrió un error inesperado al crear la notificación.", ex);
+            }
         }
 
-        public async Task<NotificacionDTO?> ActualizarAsync(int id, ActualizarNotificacionDTO dto, CancellationToken ct)
+        public async Task<ListarNotificacionDTO?> ActualizarAsync(int id, ActualizarNotificacionDTO dto, CancellationToken ct)
         {
-            using var con = _cf.Create();
-            using var cmd = new SqlCommand(@"
-                UPDATE dbo.Notificaciones
-                SET Mensaje = @m, Leido = @l
-                WHERE NotificacionID = @id;
+            if (id <= 0)
+                return null;
 
-                SELECT NotificacionID, UsuarioID, Mensaje, FechaCreacion, Leido
-                FROM dbo.Notificaciones
-                WHERE NotificacionID = @id;", con);
+            if (dto == null)
+                throw new ArgumentNullException(nameof(dto));
 
-            cmd.Parameters.Add(new SqlParameter("@m", SqlDbType.NVarChar, -1) { Value = dto.Mensaje });
-            cmd.Parameters.Add(new SqlParameter("@l", SqlDbType.Bit) { Value = dto.Leido });
-            cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int) { Value = id });
+            if (string.IsNullOrWhiteSpace(dto.Mensaje))
+                throw new ArgumentException("El mensaje no puede estar vacío.", nameof(dto.Mensaje));
 
-            await con.OpenAsync(ct);
-            using var rd = await cmd.ExecuteReaderAsync(ct);
-            if (!await rd.ReadAsync(ct)) return null;
-
-            return new NotificacionDTO
+            try
             {
-                NotificacionID = rd.GetInt32(rd.GetOrdinal("NotificacionID")),
-                UsuarioID = rd.GetInt32(rd.GetOrdinal("UsuarioID")),
-                Mensaje = rd.GetString(rd.GetOrdinal("Mensaje")),
-                FechaCreacion = rd.GetDateTime(rd.GetOrdinal("FechaCreacion")),
-                Leido = rd.GetBoolean(rd.GetOrdinal("Leido"))
-            };
+                using var con = _cf.Create();
+                using var cmd = new SqlCommand("dbo.sp_ActualizarNotificacion", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                cmd.Parameters.Add(new SqlParameter("@NotificacionID", SqlDbType.Int) { Value = id });
+                cmd.Parameters.Add(new SqlParameter("@Mensaje", SqlDbType.NVarChar, 255) { Value = dto.Mensaje.Trim() });
+                cmd.Parameters.Add(new SqlParameter("@Leido", SqlDbType.Bit) { Value = dto.Leido });
+
+                await con.OpenAsync(ct);
+                using var rd = await cmd.ExecuteReaderAsync(ct);
+                if (!await rd.ReadAsync(ct)) return null;
+
+                return new ListarNotificacionDTO
+                {
+                    NotificacionID = rd.GetInt32("NotificacionID"),
+                    NombreDonante = rd.GetString("NombreDonante"),
+                    SolicitudID = rd.GetInt32("SolicitudID"),
+                    Mensaje = rd.GetString("Mensaje"),
+                    FechaEnvio = rd.GetDateTime("FechaEnvio"),
+                    Leida = rd.GetBoolean("Leido")
+                };
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new InvalidOperationException($"Error al actualizar la notificación con ID {id} en la base de datos.", sqlEx);
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Ocurrió un error inesperado al actualizar la notificación con ID {id}.", ex);
+            }
         }
 
         public async Task<bool> MarcarLeidaAsync(int id, bool leido, CancellationToken ct)
         {
-            using var con = _cf.Create();
-            using var cmd = new SqlCommand(@"
-                UPDATE dbo.Notificaciones SET Leido = @l WHERE NotificacionID = @id;
-                SELECT @@ROWCOUNT;", con);
+            if (id <= 0)
+                return false;
 
-            cmd.Parameters.Add(new SqlParameter("@l", SqlDbType.Bit) { Value = leido });
-            cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int) { Value = id });
+            try
+            {
+                using var con = _cf.Create();
+                using var cmd = new SqlCommand("dbo.sp_MarcarNotificacionLeida", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
 
-            await con.OpenAsync(ct);
-            var rows = (int)await cmd.ExecuteScalarAsync(ct);
-            return rows > 0;
+                cmd.Parameters.Add(new SqlParameter("@NotificacionID", SqlDbType.Int) { Value = id });
+                cmd.Parameters.Add(new SqlParameter("@Leido", SqlDbType.Bit) { Value = leido });
+
+                await con.OpenAsync(ct);
+                var result = await cmd.ExecuteScalarAsync(ct);
+
+                if (result == null || result == DBNull.Value)
+                    return false;
+
+                return Convert.ToInt32(result) > 0;
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new InvalidOperationException($"Error al marcar como {(leido ? "leída" : "no leída")} la notificación con ID {id} en la base de datos.", sqlEx);
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Ocurrió un error inesperado al marcar como {(leido ? "leída" : "no leída")} la notificación con ID {id}.", ex);
+            }
         }
 
         public async Task<bool> EliminarAsync(int id, CancellationToken ct)
         {
-            using var con = _cf.Create();
-            using var cmd = new SqlCommand("DELETE dbo.Notificaciones WHERE NotificacionID = @id; SELECT @@ROWCOUNT;", con);
-            cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int) { Value = id });
+            if (id <= 0)
+                return false;
 
-            await con.OpenAsync(ct);
-            var rows = (int)await cmd.ExecuteScalarAsync(ct);
-            return rows > 0;
+            try
+            {
+                using var con = _cf.Create();
+                using var cmd = new SqlCommand("dbo.sp_EliminarNotificacion", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                cmd.Parameters.Add(new SqlParameter("@NotificacionID", SqlDbType.Int) { Value = id });
+
+                await con.OpenAsync(ct);
+                var result = await cmd.ExecuteScalarAsync(ct);
+
+                if (result == null || result == DBNull.Value)
+                    return false;
+
+                return Convert.ToInt32(result) > 0;
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new InvalidOperationException($"Error al eliminar la notificación con ID {id} de la base de datos.", sqlEx);
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Ocurrió un error inesperado al eliminar la notificación con ID {id}.", ex);
+            }
         }
     }
 }
