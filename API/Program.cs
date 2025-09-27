@@ -29,6 +29,7 @@ builder.Services.AddScoped<IEnfermedadRepositorio, EnfermedadRepositorio>();
 builder.Services.AddScoped<IEstatusInventarioRepositorio, EstatusInventarioRepositorio>();
 builder.Services.AddScoped<IRolRepositorio, RolRepositorio>();
 builder.Services.AddScoped<IHistorialEnfermedadRepositorio, HistorialEnfermedadRepositorio > ();
+builder.Services.AddScoped<INotificacionRepositorio, NotificacionRepositorio>();
 
 
 
