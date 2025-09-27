@@ -27,6 +27,8 @@ builder.Services.AddScoped<IPruebasLaboratorio, PruebasLaboratorioRepositorio>()
 builder.Services.AddScoped<IBancoDeSangreRepositorio, BancoDeSangreRepositorio>();
 builder.Services.AddScoped<IEnfermedadRepositorio, EnfermedadRepositorio>();
 builder.Services.AddScoped<IEstatusInventarioRepositorio, EstatusInventarioRepositorio>();
+builder.Services.AddScoped<IRolRepositorio, RolRepositorio>();
+
 
 
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
