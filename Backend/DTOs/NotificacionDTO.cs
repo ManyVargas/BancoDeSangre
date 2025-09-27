@@ -9,15 +9,17 @@ namespace Backend.DTOs
     public class NotificacionDTO
     {
         public int NotificacionID { get; set; }
-        public int UsuarioID { get; set; }
+        public int solicitudID { get; set; }
+        public int DonanteID { get; set; }
         public string Mensaje { get; set; } = string.Empty;
-        public DateTime FechaCreacion { get; set; }
+        public DateTime FechaEnvio { get; set; }
         public bool Leido { get; set; }
     }
 
     public class CrearNotificacionDTO
     {
-        public int UsuarioID { get; set; }
+        public int DonanteID { get; set; }
+        public int solicitudID { get; set; }
         public string Mensaje { get; set; } = string.Empty;
     }
 
@@ -25,6 +27,16 @@ namespace Backend.DTOs
     {
         public string Mensaje { get; set; } = string.Empty;
         public bool Leido { get; set; }
+    }
+
+    public class ListarNotificacionDTO {
+        public int NotificacionID { get; set; }
+        public string NombreDonante { get; set; }
+        public int SolicitudID { get; set; }
+        public string Mensaje { get; set; }
+        public DateTime FechaEnvio {get;set;}
+        public bool Leida { get; set;}
+
     }
 }
 

@@ -12,16 +12,4 @@ namespace Backend.DTOs
         public string Nombre { get; set; } = string.Empty;
         public string? Descripcion { get; set; }
     }
-
-    public class CrearEstatusInventarioDTO
-    {
-        public string Nombre { get; set; } = string.Empty;
-        public string? Descripcion { get; set; }
-    }
-
-    public class ActualizarEstatusInventarioDTO
-    {
-        public string Nombre { get; set; } = string.Empty;
-        public string? Descripcion { get; set; }
-    }
 }
