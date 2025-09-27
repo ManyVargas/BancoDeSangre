@@ -13,11 +13,9 @@ namespace Backend.Api.Controllers
         private readonly ILogger<HistorialEnfermedadController> _logger;
 
         public HistorialEnfermedadController(
-            IHistorialEnfermedadRepositorio repo,
-            ILogger<HistorialEnfermedadController> logger)
+            IHistorialEnfermedadRepositorio repo)
         {
             _repo = repo ?? throw new ArgumentNullException(nameof(repo));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         // GET: api/HistorialEnfermedad/5   -> enfermedades de un historial
