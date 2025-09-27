@@ -24,13 +24,10 @@ builder.Services.AddScoped<ITiposSangreRepositorio, TipoSangreRepositorio>();
 builder.Services.AddScoped<IHospitalRepositorio, HospitalRepositorio>();
 builder.Services.AddScoped<IResultadosPrueba, ResultadosPruebaRepositorio>();
 builder.Services.AddScoped<IPruebasLaboratorio, PruebasLaboratorioRepositorio>();
-<<<<<<< Updated upstream
 builder.Services.AddScoped<IBancoDeSangreRepositorio, BancoDeSangreRepositorio>();
-=======
 builder.Services.AddScoped<IEnfermedadRepositorio, EnfermedadRepositorio>();
->>>>>>> Stashed changes
+builder.Services.AddScoped<IEstatusInventarioRepositorio, EstatusInventarioRepositorio>();
 
-//builder.Services.AddSingleton<IJwtService, Jwt>();
 
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 /* .AddJwtBearer(o =>
