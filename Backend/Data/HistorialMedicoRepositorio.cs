@@ -19,7 +19,7 @@ namespace Backend.Data
         }
 
         // LISTAR: dbo.sp_ListarHistorialMedico (@DonanteID, @PacienteID)
-        public async Task<IEnumerable<HistorialMedicoDto>> ListarHistorialMedico(int? donanteId, int? pacienteId)
+        public async Task<IEnumerable<ListarHistorialMedicoDTO>> ListarHistorialMedico(int? donanteId, int? pacienteId)
         {
             using var con = _connectionFactory.Create();
             using var cmd = new SqlCommand("dbo.sp_ListarHistorialMedico", con)
@@ -32,36 +32,31 @@ namespace Backend.Data
 
             await con.OpenAsync();
 
-            // (opcional, para verificar que DB estás usando desde la API)
-            Console.WriteLine($"[API] Conectado a: {con.DataSource} / BD: {con.Database}");
-
             using var reader = await cmd.ExecuteReaderAsync();
 
-            // helper mini: si la columna no existe, devuelve -1 en lugar de lanzar excepción
             int TryOrd(string name)
             {
                 try { return reader.GetOrdinal(name); } catch { return -1; }
             }
 
-            var list = new List<HistorialMedicoDto>();
+            var list = new List<ListarHistorialMedicoDTO>();
             while (await reader.ReadAsync())
             {
                 var oHist = reader.GetOrdinal("HistorialID");      // obligatoria
                 var oMed = TryOrd("Medicamentos");
                 var oApto = TryOrd("AptoParaDonar");
                 var oFecha = TryOrd("FechaRevision");
-                var oDon = TryOrd("DonanteID");
-                var oPac = TryOrd("PacienteID");
+                var oNom = TryOrd("Nombre");
+                var oTipo = TryOrd("Tipo");
 
-                list.Add(new HistorialMedicoDto
+                list.Add(new ListarHistorialMedicoDTO
                 {
                     HistorialID = reader.GetInt32(oHist),
                     Medicamentos = (oMed >= 0 && !reader.IsDBNull(oMed)) ? reader.GetString(oMed) : string.Empty,
                     AptoParaDonar = (oApto >= 0 && !reader.IsDBNull(oApto)) ? reader.GetBoolean(oApto) : false,
-                    // tu DTO se llama FehaRevision (sin 'c')
                     FehaRevision = (oFecha >= 0 && !reader.IsDBNull(oFecha)) ? reader.GetDateTime(oFecha) : DateTime.MinValue,
-                    DonanteID = (oDon >= 0 && !reader.IsDBNull(oDon)) ? reader.GetInt32(oDon) : (int?)null,
-                    PacienteID = (oPac >= 0 && !reader.IsDBNull(oPac)) ? reader.GetInt32(oPac) : (int?)null
+                    Nombre = (oNom >= 0 && !reader.IsDBNull(oNom)) ? reader.GetString(oNom) : string.Empty,
+                    Tipo = (oTipo >= 0 && !reader.IsDBNull(oTipo)) ? reader.GetString(oTipo) : string.Empty
                 });
             }
 
@@ -70,12 +65,13 @@ namespace Backend.Data
 
 
 
+
         // REGISTRAR: dbo.sp_RegistrarHistorialMedico (@Medicamentos, @AptoParaDonar, @FechaRevision, @DonanteID, @PacienteID)
         // Debe devolver al menos "HistorialID" (por OUTPUT o SELECT SCOPE_IDENTITY() AS HistorialID)
         public async Task<int> RegistrarHistorialMedico(RegistrarHistorialMedicoDto dto)
         {
             using var con = _connectionFactory.Create();
-            using var cmd = new SqlCommand("dbo.sp_RegistrarHistorialMedico", con)
+            using var cmd = new SqlCommand("dbo.sp_CrearHistorialMedico", con)
             {
                 CommandType = CommandType.StoredProcedure
             };

@@ -17,6 +17,17 @@ namespace Backend.DTOs
 
     }
 
+    public class ListarHistorialMedicoDTO
+    {
+        public int HistorialID { get; set; }
+        public string Medicamentos { get; set; }
+        public bool AptoParaDonar { get; set; }
+        public DateTime FehaRevision { get; set; }
+        public string? Nombre { get; set; }
+        public string? Tipo { get; set; }
+    }
+
+
     public class RegistrarHistorialMedicoDto
     {
         public string Medicamentos { get; set; } = string.Empty;

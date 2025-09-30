@@ -93,7 +93,7 @@ namespace API.Controllers
 
         // PUT: api/Usuarios/5
         [HttpPut("{id:int}")]
-        // [Authorize(Roles = "Admin")] // <-- opcional si manejas roles
+        //[Authorize(Roles = "Admin")] // <-- opcional si manejas roles
         public async Task<ActionResult<UsuarioDto>> ActualizarUsuario(int id, [FromBody] UsuarioActualizarDto dto)
         {
             try

@@ -32,11 +32,11 @@ builder.Services.AddScoped<IHistorialEnfermedadRepositorio, HistorialEnfermedadR
 builder.Services.AddScoped<INotificacionRepositorio, NotificacionRepositorio>();
 builder.Services.AddScoped<IHistorialMedicoRepositorio, HistorialMedicoRepositorio>();
 builder.Services.AddScoped<IParticipacionCampanaRepositorio, ParticipacionCampanaRepositorio>();
+builder.Services.AddScoped<IJwtService, Jwt>();
 
 
-
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-/* .AddJwtBearer(o =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+ .AddJwtBearer(o =>
   {
       o.TokenValidationParameters = new TokenValidationParameters
       {
@@ -52,7 +52,7 @@ builder.Services.AddScoped<IParticipacionCampanaRepositorio, ParticipacionCampan
           ClockSkew = TimeSpan.Zero
       };
   });
-*/
+
 
 
 
