@@ -19,15 +19,15 @@ namespace Backend.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EstatusInventarioDTO>>> Listar(CancellationToken ct)
         {
-            try
-            {
+            //try
+            //{
                 var data = await _repo.ListarAsync(ct);
                 return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                return Problem(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return Problem(ex.Message);
+            //}
         }
 
         [HttpGet("{id:int}")]

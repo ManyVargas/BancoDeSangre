@@ -1,4 +1,5 @@
 using Backend.Data;
+using Backend.DTOs;
 using Backend.Interfaces;
 using Backend.Servicios;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,6 +33,9 @@ builder.Services.AddScoped<IHistorialEnfermedadRepositorio, HistorialEnfermedadR
 builder.Services.AddScoped<INotificacionRepositorio, NotificacionRepositorio>();
 builder.Services.AddScoped<IHistorialMedicoRepositorio, HistorialMedicoRepositorio>();  
 builder.Services.AddScoped<IParticipacionCampanaRepositorio, ParticipacionCampanaRepositorio>();
+builder.Services.AddScoped<IHistorialMedicoRepositorio, HistorialMedicoRepositorio>();
+builder.Services.AddScoped<IInventarioRepositorio, InventarioRepositorio>();
+builder.Services.AddScoped<ISolicitudesDonacionRepositorio, SolicitudesDonacionRepositorio>();
 
 
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
