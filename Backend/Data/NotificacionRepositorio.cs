@@ -35,9 +35,10 @@ namespace Backend.Data
                     {
                         NotificacionID = rd.GetInt32("NotificacionID"),
                         NombreDonante = rd.GetString("NombreDonante"),
+                        SolicitudID = rd.GetInt32("SolicitudID"),
                         Mensaje = rd.GetString("Mensaje"),
                         FechaEnvio = rd.GetDateTime("FechaEnvio"),
-                        Leida = rd.GetBoolean("Leido")
+                        Leida = rd.GetBoolean("Leida")
                     });
                 }
                 return list;
@@ -78,9 +79,10 @@ namespace Backend.Data
                 {
                     NotificacionID = rd.GetInt32("NotificacionID"),
                     NombreDonante = rd.GetString("NombreDonante"),
+                    SolicitudID = rd.GetInt32("SolicitudID"),
                     Mensaje = rd.GetString("Mensaje"),
                     FechaEnvio = rd.GetDateTime("FechaEnvio"),
-                    Leida = rd.GetBoolean("Leido")
+                    Leida = rd.GetBoolean("Leida")
                 };
             }
             catch (SqlException sqlEx)
@@ -166,7 +168,6 @@ namespace Backend.Data
 
                 cmd.Parameters.Add(new SqlParameter("@NotificacionID", SqlDbType.Int) { Value = id });
                 cmd.Parameters.Add(new SqlParameter("@Mensaje", SqlDbType.NVarChar, 255) { Value = dto.Mensaje.Trim() });
-                cmd.Parameters.Add(new SqlParameter("@Leido", SqlDbType.Bit) { Value = dto.Leido });
 
                 await con.OpenAsync(ct);
                 using var rd = await cmd.ExecuteReaderAsync(ct);
@@ -179,7 +180,7 @@ namespace Backend.Data
                     SolicitudID = rd.GetInt32("SolicitudID"),
                     Mensaje = rd.GetString("Mensaje"),
                     FechaEnvio = rd.GetDateTime("FechaEnvio"),
-                    Leida = rd.GetBoolean("Leido")
+                    Leida = rd.GetBoolean("Leida")
                 };
             }
             catch (SqlException sqlEx)

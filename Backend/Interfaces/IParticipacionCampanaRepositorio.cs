@@ -9,6 +9,6 @@ namespace Backend.Interfaces
        
         // CRUD mínimos según lo que necesitas
         Task<int> CrearAsync(CrearParticipacionCampanaDTO dto, CancellationToken ct);
-        Task<ListarParticipantesCampana?> ObtenerPorPaticipantesPorIdAsync(int id, CancellationToken ct);
+        Task<IEnumerable<ListarParticipantesCampana?>> ObtenerPorPaticipantesPorIdAsync(int id, CancellationToken ct);
     }
 }

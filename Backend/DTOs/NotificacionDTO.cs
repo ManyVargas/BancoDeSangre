@@ -26,7 +26,6 @@ namespace Backend.DTOs
     public class ActualizarNotificacionDTO
     {
         public string Mensaje { get; set; } = string.Empty;
-        public bool Leido { get; set; }
     }
 
     public class ListarNotificacionDTO {

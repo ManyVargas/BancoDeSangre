@@ -31,23 +31,32 @@ namespace Backend.Data
             using var reader = await cmd.ExecuteReaderAsync();
 
             var list = new List<BancoDeSangreDto>();
-            while(await reader.ReadAsync())
+            while (await reader.ReadAsync())
             {
                 list.Add(new BancoDeSangreDto
                 {
-                    BancoId = reader.GetInt32(reader.GetOrdinal("BancoID")),
-                    Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
-                    Direccion = reader.GetString(reader.GetOrdinal("Direccion")),
-                    Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
-                    Longitud = reader.GetDecimal(reader.GetOrdinal("Longitud")),
-                    Latitud = reader.GetDecimal(reader.GetOrdinal("Latitud")),
-                    SitioWeb = reader.GetString(reader.GetOrdinal("SitioWeb")),
-                    CorreoElectronico = reader.GetString(reader.GetOrdinal("CorreoElectronico")),
-                    RNC = reader.GetString(reader.GetOrdinal("RNC"))
+                    BancoId = reader.IsDBNull(reader.GetOrdinal("BancoID")) ? 0: reader.GetInt32(reader.GetOrdinal("BancoID")),
+
+                    Nombre = reader.IsDBNull(reader.GetOrdinal("Nombre")) ? string.Empty : reader.GetString(reader.GetOrdinal("Nombre")),
+
+                    Direccion = reader.IsDBNull(reader.GetOrdinal("Direccion")) ? string.Empty : reader.GetString(reader.GetOrdinal("Direccion")),
+
+                    Telefono = reader.IsDBNull(reader.GetOrdinal("Telefono")) ? string.Empty : reader.GetString(reader.GetOrdinal("Telefono")),
+
+                    Longitud = reader.IsDBNull(reader.GetOrdinal("Longitud")) ? 0 : reader.GetDecimal(reader.GetOrdinal("Longitud")),
+
+                    Latitud = reader.IsDBNull(reader.GetOrdinal("Latitud")) ? 0 : reader.GetDecimal(reader.GetOrdinal("Latitud")),
+
+                    SitioWeb = reader.IsDBNull(reader.GetOrdinal("SitioWeb")) ? string.Empty : reader.GetString(reader.GetOrdinal("SitioWeb")),
+
+                    CorreoElectronico = reader.IsDBNull(reader.GetOrdinal("CorreoElectronico")) ? string.Empty : reader.GetString(reader.GetOrdinal("CorreoElectronico")),
+
+                    RNC = reader.IsDBNull(reader.GetOrdinal("RNC")) ? string.Empty : reader.GetString(reader.GetOrdinal("RNC"))
                 });
             }
             return list;
         }
+
 
         public async Task<int> RegistrarBancoDeSangre(RegistrarBancoDeSangreDto dto)
         {

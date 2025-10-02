@@ -46,8 +46,10 @@ namespace Backend.Data
             }
         }
 
-        public async Task<ListarParticipantesCampana?> ObtenerPorPaticipantesPorIdAsync(int id, CancellationToken ct)
+        public async Task<IEnumerable<ListarParticipantesCampana?>> ObtenerPorPaticipantesPorIdAsync(int id, CancellationToken ct)
         {
+            var participantes = new List<ListarParticipantesCampana>();
+
             try
             {
                 using var con = _cf.Create();
@@ -61,9 +63,10 @@ namespace Backend.Data
                 await con.OpenAsync(ct);
 
                 using var rd = await cmd.ExecuteReaderAsync(ct);
-                if (await rd.ReadAsync(ct))
+
+                while (await rd.ReadAsync(ct))
                 {
-                    return new ListarParticipantesCampana
+                    participantes.Add(new ListarParticipantesCampana
                     {
                         ParticipacionID = rd.GetInt32(rd.GetOrdinal("ParticipacionID")),
                         NombreCampana = rd.GetString(rd.GetOrdinal("NombreDeCampaña")),
@@ -71,10 +74,10 @@ namespace Backend.Data
                         TipoDeSangre = rd.GetString(rd.GetOrdinal("TipoDeSangre")),
                         FechaDonacion = rd.GetDateTime(rd.GetOrdinal("FechaDonacion")),
                         CantidadUnidades = rd.GetInt32(rd.GetOrdinal("CantidadUnidades"))
-                    };
+                    });
                 }
 
-                return null;
+                return participantes;
             }
             catch (SqlException ex)
             {
